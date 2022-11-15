@@ -209,9 +209,9 @@ Set up dotenv, create a .env file and define a variable
 API_KEY with a value that is the api key for your account. """
 
 API_KEY = os.getenv('API_KEY')
-print(API_KEY)
+# print(API_KEY)
 
-TENOR_URL = 'https://api.tenor.com/v1/search'
+TENOR_URL = 'https://tenor.googleapis.com/v2/search'
 pp = PrettyPrinter(indent=4)
 
 
@@ -221,14 +221,19 @@ def gif_search():
     if request.method == 'POST':
         # TODO: Get the search query & number of GIFs requested by the user, store each as a
         # variable
+        search_query = request.form.get('search_query')
+        num_of_gifs = request.form.get('quantity')
 
         response = requests.get(
             TENOR_URL,
             {
                 # TODO: Add in key-value pairs for:
                 # - 'q': the search query
+                'q': search_query,
                 # - 'key': the API key (defined above)
+                'key': API_KEY,
                 # - 'limit': the number of GIFs requested
+                'limit': num_of_gifs,
             })
 
         gifs = json.loads(response.content).get('results')
