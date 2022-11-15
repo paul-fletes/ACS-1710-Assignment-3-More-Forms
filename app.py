@@ -98,11 +98,16 @@ def animal_facts():
     """Show a form to choose an animal and receive facts."""
 
     # TODO: Collect the form data and save as variables
+    chosen_animal = request.args.get('animal')
+    animals = list(animal_to_fact.keys())
 
     context = {
         # TODO: Enter your context variables here for:
         # - the list of all animals (get from animal_to_fact)
+        'list_of_animals': animals,
         # - the chosen animal fact (may be None if the user hasn't filled out the form yet)
+        'animal_fact': animal_to_fact.get(chosen_animal),
+        'chosen_animal': chosen_animal,
     }
     return render_template('animal_facts.html', **context)
 
@@ -239,4 +244,4 @@ def gif_search():
 
 if __name__ == '__main__':
     app.config['ENV'] = 'development'
-    app.run(debug=True)
+    app.run(debug=True, port=3000)
