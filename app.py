@@ -60,7 +60,7 @@ def compliments():
 @app.route('/compliments_results')
 def compliments_results():
     """Show the user some compliments."""
-    if int(request.args.get('num_compliments')) > leng(list_of_compliments):
+    if int(request.args.get('num_compliments')) > len(list_of_compliments):
         num_compliments = len(list_of_compliments)
     else:
         num_compliments = int(request.args.get('num_compliments'))
